@@ -1,4 +1,4 @@
-# pip install pymupdf pandas streamlit fontstyle pdfminer.six
+# pip install -r requirements.txt
 
 import pymupdf
 import re
