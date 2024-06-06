@@ -1,6 +1,6 @@
 # pip install pymupdf pandas streamlit fontstyle pdfminer.six
 
-import pymupdf as fitz 
+import pymupdf
 import re
 import os
 import pandas as pd
@@ -48,7 +48,7 @@ if st.session_state.current_page == 'main':
 elif st.session_state.current_page == 'Overwrite':
     
     def find_and_replace(pdf_path: str, output_path: str, replacements: List[Tuple[str, str]]):
-        document = fitz.open(pdf_path)
+        document = pymupdf.open(pdf_path)
         pattern = re.compile(r'rev(\d+)')
 
         for page_num in range(len(document)):
@@ -63,7 +63,7 @@ elif st.session_state.current_page == 'Overwrite':
                 text_instances = page.search_for(original_text)
 
                 for inst in text_instances:
-                    strikeout_rect = fitz.Rect(
+                    strikeout_rect = pymupdf.Rect(
                         inst.x0 + (inst.x1 - inst.x0) / 2 - 0.5,
                         inst.y0,
                         inst.x0 + (inst.x1 - inst.x0) / 2 + 0.5,
@@ -78,7 +78,7 @@ elif st.session_state.current_page == 'Overwrite':
         document.close()
 
     def strike_out_and_replace(pdf_path: str, output_path: str, replacements: List[Tuple[str, str]]):
-        document = fitz.open(pdf_path)
+        document = pymupdf.open(pdf_path)
 
         for page_num in range(len(document)):
             page = document.load_page(page_num)
@@ -87,7 +87,7 @@ elif st.session_state.current_page == 'Overwrite':
                 text_instances = page.search_for(original_text)
                 
                 for inst in text_instances:
-                    strikeout_rect = fitz.Rect(
+                    strikeout_rect = pymupdf.Rect(
                         inst.x0 + (inst.x1 - inst.x0) / 2 - 0.5,
                         inst.y0,
                         inst.x0 + (inst.x1 - inst.x0) / 2 + 0.5,
@@ -161,7 +161,7 @@ elif st.session_state.current_page == 'conformity Marking':
     if st.button("Start Process"):
 
         def rev_replace(pdf_path: str, output_path: str):
-            document = fitz.open(pdf_path)
+            document = pymupdf.open(pdf_path)
             pattern = re.compile(r'rev(\d+)')
 
             for page_num in range(len(document)):
@@ -176,7 +176,7 @@ elif st.session_state.current_page == 'conformity Marking':
                     text_instances = page.search_for(original_text)
 
                     for inst in text_instances:
-                        strikeout_rect = fitz.Rect(
+                        strikeout_rect = pymupdf.Rect(
                             inst.x0 + (inst.x1 - inst.x0) / 2 - 0.5,
                             inst.y0,
                             inst.x0 + (inst.x1 - inst.x0) / 2 + 0.5,
@@ -225,10 +225,10 @@ elif st.session_state.current_page == 'conformity Marking':
                         top_right_x = left_margin + image_width
                         top_right_y = 792 - top_margin
 
-                        image_rectangle = fitz.Rect(bottom_left_x, bottom_left_y, top_right_x, top_right_y)
+                        image_rectangle = pymupdf.Rect(bottom_left_x, bottom_left_y, top_right_x, top_right_y)
 
                         # Open the PDF document
-                        file_handle = fitz.open(input_file)
+                        file_handle = pymupdf.open(input_file)
                         first_page = file_handle[0]
 
                         # Add the image to the first page
@@ -263,7 +263,7 @@ elif st.session_state.current_page == 'conformity Marking':
 elif st.session_state.current_page == 'Notes Addition':
     # To replace the (revision) number 
     def rev_replace(pdf_path: str, output_path: str, replacements: List[Tuple[str, str]]):
-        document = fitz.open(pdf_path)
+        document = pymupdf.open(pdf_path)
         pattern = re.compile(r'rev(\d+)')
 
         for page_num in range(len(document)):
@@ -278,7 +278,7 @@ elif st.session_state.current_page == 'Notes Addition':
                 text_instances = page.search_for(original_text)
 
                 for inst in text_instances:
-                    strikeout_rect = fitz.Rect(
+                    strikeout_rect = pymupdf.Rect(
                         inst.x0 + (inst.x1 - inst.x0) / 2 - 0.5,
                         inst.y0,
                         inst.x0 + (inst.x1 - inst.x0) / 2 + 0.5,
@@ -329,7 +329,7 @@ elif st.session_state.current_page == 'Notes Addition':
     # To replace the Clean_copy with Redline_copy
     def find_and_replace(pdf_path: str, output_path: str, replacements: List[Tuple[str, str]]):
 
-        document = fitz.open(pdf_path)
+        document = pymupdf.open(pdf_path)
 
         for page_num in range(len(document)):
             page = document.load_page(page_num)
