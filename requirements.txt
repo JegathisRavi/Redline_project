@@ -1,0 +1,7 @@
+pymupdf
+re
+os
+pandas
+streamlit
+fontstyle
+pdfminer.six
